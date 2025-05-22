@@ -1,0 +1,34 @@
+admin.addPeer("enode://45ef68ec6f9360967dc9a275beb048a718ba7c9949a2c6585ff79e1c26eda143af52ac9d12b926442e1b00d0b49969c25bfbebcfcb0ba86fc650daa768e058b5@127.0.0.1:30301")
+net.peerCount
+admin.peers
+web3.fromWei(eth.getBalance("0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0"), "ether")
+eth.sendTransaction({
+  from: "0x89126844cb02681888C4B00055045A2c8112f41f",
+  to:   "0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0",
+  value: web3.toWei(1, "ether")
+})
+web3.fromWei(
+  eth.getBalance("0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0"),
+  "ether"
+)
+eth.syncing
+admin.addPeer(
+  "enode://45ef68ec6f9360967dc9a275beb048a718ba7c9949a2c6585ff79e1c26eda143af52ac9d12b926442e1b00d0b49969c25bfbebcfcb0ba86fc650daa768e058b5@127.0.0.1:30301"
+)
+net.peerCount
+eth.syncing
+miner.start(1)
+eth.syncing
+eth.blockNumber
+web3.fromWei(
+  eth.getBalance("0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0"),
+  "ether"
+)
+miner.stop()
+admin.addPeer("enode://45ef68ec6f9360967dc9a275beb048a718ba7c9949a2c6585ff79e1c26eda143af52ac9d12b926442e1b00d0b49969c25bfbebcfcb0ba86fc650daa768e058b5@127.0.0.1:30301")
+eth.syncing
+eth.blockNumber
+web3.fromWei(
+  eth.getBalance("0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0"),
+  "ether"
+)

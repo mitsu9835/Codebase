@@ -1,0 +1,9 @@
+eth.sendTransaction({
+  from:    "0x89126844cb02681888C4B00055045A2c8112f41f",
+  to:      "0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0",
+  value:   web3.toWei(1, "ether")
+})
+web3.fromWei(
+  eth.getBalance("0x89126844cb02681888C4B00055045A2c8112f41f"),
+  "ether"
+)

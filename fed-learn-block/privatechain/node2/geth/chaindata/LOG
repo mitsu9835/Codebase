@@ -1,0 +1,84 @@
+=============== May 21, 2025 (UTC) ===============
+11:16:17.597975 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:16:17.612467 db@open opening
+11:16:17.613174 version@stat F·[] S·0B[] Sc·[]
+11:16:17.616020 db@janitor F·2 G·0
+11:16:17.616108 db@open done T·3.604152ms
+11:16:17.659982 db@close closing
+11:16:17.660128 db@close done T·145.265µs
+=============== May 21, 2025 (UTC) ===============
+11:19:01.630938 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:19:01.631004 version@stat F·[] S·0B[] Sc·[]
+11:19:01.631021 db@open opening
+11:19:01.631038 journal@recovery F·1
+11:19:01.635854 journal@recovery recovering @1
+11:19:01.643760 memdb@flush created L0@2 N·14 S·1KiB "H\x8d ..\xa8\x00\x7f,v7":"\xe7\xdc\xfa..\xd5\xe91,v3"
+11:19:01.649821 version@stat F·[1] S·1KiB[1KiB] Sc·[0.25]
+11:19:01.676265 db@janitor F·3 G·0
+11:19:01.676285 db@open done T·45.25791ms
+11:19:03.836945 db@close closing
+11:19:03.837050 db@close done T·103.898µs
+=============== May 21, 2025 (UTC) ===============
+11:20:24.389759 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:20:24.389875 version@stat F·[1] S·1KiB[1KiB] Sc·[0.25]
+11:20:24.390047 db@open opening
+11:20:24.390206 journal@recovery F·1
+11:20:24.392368 journal@recovery recovering @3
+11:20:24.396933 memdb@flush created L0@5 N·10 S·742B "Dat..ion,v16":"unc..own,v24"
+11:20:24.399175 version@stat F·[2] S·1KiB[1KiB] Sc·[0.50]
+11:20:24.409282 db@janitor F·4 G·0
+11:20:24.409324 db@open done T·19.249541ms
+=============== May 21, 2025 (UTC) ===============
+11:22:02.645298 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:22:02.645371 version@stat F·[2] S·1KiB[1KiB] Sc·[0.50]
+11:22:02.645389 db@open opening
+11:22:02.645409 journal@recovery F·1
+11:22:02.647253 journal@recovery recovering @6
+11:22:02.652680 memdb@flush created L0@8 N·1 S·203B "unc..own,v27":"unc..own,v27"
+11:22:02.654571 version@stat F·[3] S·2KiB[2KiB] Sc·[0.75]
+11:22:02.670141 db@janitor F·5 G·0
+11:22:02.670216 db@open done T·24.802873ms
+11:34:16.472653 db@close closing
+11:34:16.473012 db@close done T·357.229µs
+=============== May 21, 2025 (UTC) ===============
+11:34:19.436412 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:34:19.437280 version@stat F·[3] S·2KiB[2KiB] Sc·[0.75]
+11:34:19.437323 db@open opening
+11:34:19.437368 journal@recovery F·1
+11:34:19.440932 journal@recovery recovering @9
+11:34:19.444391 memdb@flush created L0@11 N·46 S·1KiB "Fas..mit,v41":"unc..own,v29"
+11:34:19.446583 version@stat F·[4] S·3KiB[3KiB] Sc·[1.00]
+11:34:19.461422 db@janitor F·6 G·0
+11:34:19.461476 db@open done T·24.127223ms
+11:34:19.461625 table@compaction L0·4 -> L1·0 S·3KiB Q·75
+11:34:19.467228 table@build created L1@14 N·23 S·1KiB "Dat..ion,v16":"\xe7\xdc\xfa..\xd5\xe91,v3"
+11:34:19.467289 version@stat F·[0 1] S·1KiB[0B 1KiB] Sc·[0.00 0.00]
+11:34:19.470783 table@compaction committed F-3 S-1KiB Ke·0 D·48 T·9.065026ms
+11:34:19.471134 table@remove removed @8
+11:34:19.471196 table@remove removed @5
+11:34:19.471228 table@remove removed @2
+11:39:09.902413 db@close closing
+11:39:09.902665 db@close done T·255.52µs
+=============== May 21, 2025 (UTC) ===============
+11:39:17.227446 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:39:17.227626 version@stat F·[0 1] S·1KiB[0B 1KiB] Sc·[0.00 0.00]
+11:39:17.227676 db@open opening
+11:39:17.227699 journal@recovery F·1
+11:39:17.228979 journal@recovery recovering @12
+11:39:17.236925 memdb@flush created L0@15 N·51 S·2KiB "H\x00\x80..\xffb\x16,d111":"unc..own,v76"
+11:39:17.239305 version@stat F·[1 1] S·3KiB[2KiB 1KiB] Sc·[0.25 0.00]
+11:39:17.251132 db@janitor F·5 G·1
+11:39:17.251171 db@janitor removing table-11
+11:39:17.251214 db@open done T·23.533975ms
+11:41:49.032503 db@close closing
+11:41:49.032833 db@close done T·330.041µs
+=============== May 21, 2025 (UTC) ===============
+11:41:54.379256 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+11:41:54.379337 version@stat F·[1 1] S·3KiB[2KiB 1KiB] Sc·[0.25 0.00]
+11:41:54.379367 db@open opening
+11:41:54.379404 journal@recovery F·1
+11:41:54.380523 journal@recovery recovering @16
+11:41:54.387366 memdb@flush created L0@18 N·11 S·684B "H\"`..=w\x15,v131":"unc..own,v128"
+11:41:54.388835 version@stat F·[2 1] S·4KiB[2KiB 1KiB] Sc·[0.50 0.00]
+11:41:54.402721 db@janitor F·5 G·0
+11:41:54.402758 db@open done T·23.382914ms
