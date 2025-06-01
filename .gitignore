@@ -1,0 +1,3 @@
+# ignore geth’s IPC socket
+fed-learn-block/geth-data/geth.ipc
+fed-learn-block/geth-data/geth.ipc

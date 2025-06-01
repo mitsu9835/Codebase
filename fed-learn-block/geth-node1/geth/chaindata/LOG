@@ -1,0 +1,30 @@
+=============== May 28, 2025 (UTC) ===============
+18:30:16.495641 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+18:30:16.509384 db@open opening
+18:30:16.510072 version@stat F·[] S·0B[] Sc·[]
+18:30:16.513679 db@janitor F·2 G·0
+18:30:16.513728 db@open done T·4.287808ms
+18:30:16.558298 db@close closing
+18:30:16.558374 db@close done T·76.764µs
+=============== May 28, 2025 (UTC) ===============
+18:32:33.921340 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+18:32:33.921416 version@stat F·[] S·0B[] Sc·[]
+18:32:33.921434 db@open opening
+18:32:33.921452 journal@recovery F·1
+18:32:33.923052 journal@recovery recovering @1
+18:32:33.928599 memdb@flush created L0@2 N·14 S·1KiB "\x13sP..\xcc\x16\xf2,v2":"\x9e,\xca..Y\x80r,v1"
+18:32:33.930783 version@stat F·[1] S·1KiB[1KiB] Sc·[0.25]
+18:32:33.941865 db@janitor F·3 G·0
+18:32:33.941894 db@open done T·20.442165ms
+19:06:13.192702 db@close closing
+19:06:13.193105 db@close done T·403.01µs
+=============== May 28, 2025 (UTC) ===============
+19:06:34.075619 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+19:06:34.075769 version@stat F·[1] S·1KiB[1KiB] Sc·[0.25]
+19:06:34.075796 db@open opening
+19:06:34.075826 journal@recovery F·1
+19:06:34.078013 journal@recovery recovering @3
+19:06:34.082709 memdb@flush created L0@5 N·29 S·1KiB "Dat..ion,v16":"unc..own,v25"
+19:06:34.085444 version@stat F·[2] S·2KiB[2KiB] Sc·[0.50]
+19:06:34.095333 db@janitor F·4 G·0
+19:06:34.095369 db@open done T·19.566893ms
