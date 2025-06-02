@@ -32,3 +32,9 @@ web3.fromWei(
   eth.getBalance("0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0"),
   "ether"
 )
+eth.syncing
+eth.blockNumber
+web3.fromWei(
+  eth.getBalance("0x6A2b04a119D9C5fBBe27f66c66Ea817D90610df0"),
+  "ether"
+)

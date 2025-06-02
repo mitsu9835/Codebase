@@ -1,3 +1,6 @@
 # ignore geth’s IPC socket
 fed-learn-block/geth-data/geth.ipc
 fed-learn-block/geth-data/geth.ipc
+fed-learn-block/privatechain/node1/geth.ipc
+fed-learn-block/privatechain/node1/geth/geth.ipc
+fed-learn-block/privatechain/node2/geth.ipc
