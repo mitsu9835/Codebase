@@ -16,3 +16,4 @@ web3.fromWei(
   eth.getBalance("0x89126844cb02681888C4B00055045A2c8112f41f"),
   "ether"
 )
+eth.blockNumber
