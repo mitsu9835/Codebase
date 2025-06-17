@@ -4,3 +4,7 @@ fed-learn-block/geth-data/geth.ipc
 fed-learn-block/privatechain/node1/geth.ipc
 fed-learn-block/privatechain/node1/geth/geth.ipc
 fed-learn-block/privatechain/node2/geth.ipc
+fed-learn-block/venv/bin/python
+fed-learn-block/venv/bin/python3
+fed-learn-block/venv/bin/python3.12
+fed-learn-block/venv/lib64
