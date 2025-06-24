@@ -3,26 +3,29 @@ package main
 import (
     "context"
     "encoding/csv"
+    "encoding/json"
     "fmt"
     "io"
+    "io/ioutil"
     "log"
     "os"
     "strconv"
     "strings"
 
+    bls "github.com/kilic/bls12-381"
     "github.com/ethereum/go-ethereum/accounts/abi/bind"
     "github.com/ethereum/go-ethereum/common"
     "github.com/ethereum/go-ethereum/ethclient"
 
     "fed-learn-block/contracts"
+    "fed-learn-block/functions"
 )
 
-// computeLocalGradient applies the provided algorithm:
-// ∇ = Σᵢ[(θ·xᵢ − yᵢ) * xᵢ]
+// computeLocalGradient applies ∇ = Σᵢ[(θ·xᵢ − yᵢ) * xᵢ]
 func computeLocalGradient(X [][]float64, y []float64, theta []float64) []float64 {
     m := len(X)
     n := len(X[0])
-    gradient := make([]float64, n)
+    grad := make([]float64, n)
     for i := 0; i < m; i++ {
         pred := 0.0
         for j := 0; j < n; j++ {
@@ -30,26 +33,25 @@ func computeLocalGradient(X [][]float64, y []float64, theta []float64) []float64
         }
         err := pred - y[i]
         for j := 0; j < n; j++ {
-            gradient[j] += err * X[i][j]
+            grad[j] += err * X[i][j]
         }
     }
-    return gradient
+    return grad
 }
 
 func main() {
-    // 1) Open CSV
+    // 1) Load CSV
     f, err := os.Open("train.csv")
     if err != nil {
-        log.Fatalf("failed to open train.csv: %v", err)
+        log.Fatalf("open train.csv: %v", err)
     }
     defer f.Close()
-
     reader := csv.NewReader(f)
 
-    // 2) Read header
+    // 2) Read header to get feature count
     header, err := reader.Read()
     if err != nil {
-        log.Fatalf("failed to read header: %v", err)
+        log.Fatalf("read header: %v", err)
     }
     n := len(header) - 1
     fmt.Printf("Detected %d features (excluding target)\n", n)
@@ -62,7 +64,7 @@ func main() {
             break
         }
         if err != nil {
-            log.Fatalf("failed to read records: %v", err)
+            log.Fatalf("read record: %v", err)
         }
         records = append(records, rec)
     }
@@ -88,10 +90,10 @@ func main() {
         y[i] = tv
     }
 
-    // 5) Initialize theta
+    // 5) Initialize theta = [0.1, 0.2, …]
     theta := make([]float64, n)
     for i := range theta {
-        theta[i] = 0.1 * float64(i+1) // example coefficients
+        theta[i] = 0.1 * float64(i+1)
     }
     fmt.Printf("Initialized theta: %v\n", theta)
 
@@ -106,32 +108,83 @@ func main() {
     grad := computeLocalGradient(X, y, theta)
     fmt.Printf("Local gradient: %v\n", grad)
 
-    // --- Ethereum setup for noise generation --- //
+    // --- Ethereum noise generation --- //
 
-    // 8) Read deployed Store address
+    // 8) Read contract address
     addrBytes, err := os.ReadFile("tmp/contractInfo/contract-address")
     if err != nil {
-        log.Fatalf("read address file: %v", err)
+        log.Fatalf("read address: %v", err)
     }
     addr := common.HexToAddress(strings.TrimSpace(string(addrBytes)))
     fmt.Println("Using Store at", addr.Hex())
 
-    // 9) Connect to the node
+    // 9) Dial node
     client, err := ethclient.Dial("http://127.0.0.1:8545")
     if err != nil {
         log.Fatalf("dial node: %v", err)
     }
 
-    // 10) Bind the contract
+    // 10) Bind Store
     store, err := contracts.NewContracts(addr, client)
     if err != nil {
         log.Fatalf("bind contract: %v", err)
     }
 
-    // 11) Call generate_noise()
-    noiseBig, err := store.GenerateNoise(&bind.CallOpts{Context: context.Background()})
-    if err != nil {
-        log.Fatalf("generate_noise: %v", err)
+    // 11) Fetch one noise sample per feature
+    noises := make([]int64, n)
+    for j := 0; j < n; j++ {
+        nb, err := store.GenerateNoise(&bind.CallOpts{Context: context.Background()})
+        if err != nil {
+            log.Fatalf("generate_noise[%d]: %v", j, err)
+        }
+        noises[j] = nb.Int64()
     }
-    fmt.Printf("Generated noise ηᵢⱼ = %s\n", noiseBig.String())
+    fmt.Printf("Noise vector η: %v\n", noises)
+
+    // 12) Mask gradient
+    masked := functions.MaskGradient(grad, func() []float64 {
+        arr := make([]float64, n)
+        for i, v := range noises {
+            arr[i] = float64(v)
+        }
+        return arr
+    }())
+    fmt.Printf("Masked gradient: %v\n", masked)
+
+    // 13) Compute BLS commitments
+    g1 := bls.NewG1()
+    commitG := functions.CommitVector(grad)
+    commitN := functions.CommitVector(func() []float64 {
+        arr := make([]float64, n)
+        for i, v := range noises {
+            arr[i] = float64(v)
+        }
+        return arr
+    }())
+    commitM := functions.CommitVector(masked)
+
+    cgBytes := g1.ToCompressed(commitG)
+    cnBytes := g1.ToCompressed(commitN)
+    cmBytes := g1.ToCompressed(commitM)
+
+    // 14) Write device_output.json
+    out := struct {
+        MaskedUpdate []float64 `json:"masked_update"`
+        CommitG      string    `json:"commit_g"`
+        CommitN      string    `json:"commit_n"`
+        CommitM      string    `json:"commit_m"`
+    }{
+        MaskedUpdate: masked,
+        CommitG:      fmt.Sprintf("%x", cgBytes),
+        CommitN:      fmt.Sprintf("%x", cnBytes),
+        CommitM:      fmt.Sprintf("%x", cmBytes),
+    }
+    data, err := json.MarshalIndent(out, "", "  ")
+    if err != nil {
+        log.Fatalf("marshal JSON: %v", err)
+    }
+    if err := ioutil.WriteFile("tmp/device_output.json", data, 0644); err != nil {
+        log.Fatalf("write device_output.json: %v", err)
+    }
+    fmt.Println("Wrote tmp/device_output.json")
 }
