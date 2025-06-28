@@ -1,3 +1,4 @@
+// functions/crypto.go
 package functions
 
 import (
@@ -37,17 +38,12 @@ func MaskGradient(grad []float64, noise []float64) []float64 {
 //
 func CommitVector(vec []float64) *bls12381.PointG1 {
     g1 := bls12381.NewG1()
-    // generator G
-    gen := g1.One()
-    // accumulator = point at infinity
-    acc := g1.Zero()
+    gen := g1.One()    // generator
+    acc := g1.Zero()   // identity
     for _, v := range vec {
-        // convert v to integer
         bi := big.NewInt(int64(v))
-        // tmp = bi * G
         tmp := g1.New()
         g1.MulScalarBig(tmp, gen, bi)
-        // acc += tmp
         g1.Add(acc, acc, tmp)
     }
     return acc
