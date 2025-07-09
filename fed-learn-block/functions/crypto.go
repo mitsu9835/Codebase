@@ -38,8 +38,8 @@ func MaskGradient(grad []float64, noise []float64) []float64 {
 //
 func CommitVector(vec []float64) *bls12381.PointG1 {
     g1 := bls12381.NewG1()
-    gen := g1.One()    // generator
-    acc := g1.Zero()   // identity
+    gen := g1.One()
+    acc := g1.Zero()
     for _, v := range vec {
         bi := big.NewInt(int64(v))
         tmp := g1.New()
@@ -54,7 +54,6 @@ func CommitVector(vec []float64) *bls12381.PointG1 {
 //    CommitVector(masked) == commitG + commitN
 //
 func VerifyCommitments(masked []float64, commitG, commitN *bls12381.PointG1) bool {
-    // recompute commitM from numeric values
     commitM2 := CommitVector(masked)
     g1 := bls12381.NewG1()
     sum := g1.New()
